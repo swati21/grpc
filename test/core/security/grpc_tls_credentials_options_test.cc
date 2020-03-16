@@ -50,6 +50,15 @@ TEST(GrpcTlsCredentialsOptionsTest, SetKeyMaterials) {
   delete config;
 }
 
+TEST(GrpcTlsCredentialsOptionsTest, ErrorDetails) {
+  grpc_tls_err_details err_details;
+  EXPECT_STREQ(err_details.err_details_c_str(), "");
+  EXPECT_EQ(err_details.has_error(), false);
+  err_details.set_err_details("test error details");
+  EXPECT_EQ(err_details.has_error(), true);
+  EXPECT_STREQ(err_details.err_details().c_str(), "test error details");
+}
+
 }  // namespace testing
 
 int main(int argc, char** argv) {
